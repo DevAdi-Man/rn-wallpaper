@@ -1,0 +1,23 @@
+{
+  "$schema": "https://nitro.margelo.com/nitro.schema.json",
+  "cxxNamespace": [
+    "wallpaper"
+  ],
+  "ios": {
+    "iosModuleName": "NitroWallpaper"
+  },
+  "android": {
+    "androidNamespace": [
+      "wallpaper"
+    ],
+    "androidCxxLibName": "NitroWallpaper"
+  },
+  "autolinking": {
+       "Wallpaper":{
+            "kotlin":"HybridWallpaper"
+        }
+    },
+  "ignorePaths": [
+    "**/node_modules"
+  ]
+}

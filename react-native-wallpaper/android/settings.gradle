@@ -1,0 +1,7 @@
+rootProject.name = 'react-native-wallpaper'
+
+// 1. Include the Nitro Modules package
+include ':react-native-nitro-modules'
+
+// 2. Tell Gradle exactly where the folder is (relative to the android/ folder)
+project(':react-native-nitro-modules').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-nitro-modules/android')
