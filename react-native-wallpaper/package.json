@@ -45,14 +45,14 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DevAdi-Man/react-native-wallpaper.git"
+    "url": "git+https://github.com/DevAdi-Man/rn-wallpaper"
   },
   "author": "Dev Adi <adityaraj@99106@gmail.com> (https://github.com/DevAdi-Man)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/DevAdi-Man/react-native-wallpaper/issues"
+    "url": "https://github.com/DevAdi-Man/rn-wallpaper/issues"
   },
-  "homepage": "https://github.com/DevAdi-Man/react-native-wallpaper#readme",
+  "homepage": "https://github.com/DevAdi-Man/rn-wallpaper#readme",
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
