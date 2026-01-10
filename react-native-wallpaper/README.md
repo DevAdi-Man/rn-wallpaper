@@ -1,38 +1,142 @@
-# react-native-nitro-template
+# @velocity-stack/rn-wallpaper
 
-This is a template for Nitro Modules.
+A React Native module for setting device wallpapers on Android using Nitro Modules for high performance native integration.
+
+## Features
+
+- Set wallpaper for home screen, lock screen, or both
+- Built with Nitro Modules for optimal performance
+- TypeScript support
+- Android only (iOS doesn't support external apps setting wallpapers)
+- Promise-based API
+
+## Installation
+
+```bash
+npm install @velocity-stack/rn-wallpaper
+```
+
+### Android Setup
+
+No additional setup required for Android.
 
 ## Usage
 
-Clone this repo, and change all `$$*$$` names according to your `nitro.json` file.
+```typescript
+import { HybridWallpaper, WallpaperLocation } from '@velocity-stack/rn-wallpaper';
+
+// Set home screen wallpaper
+await HybridWallpaper.setWallpaper('https://example.com/image.jpg', WallpaperLocation.HOME);
+
+// Set lock screen wallpaper
+await HybridWallpaper.setWallpaper('https://example.com/image.jpg', WallpaperLocation.LOCK);
+
+// Set both screens
+await HybridWallpaper.setWallpaper('https://example.com/image.jpg', WallpaperLocation.BOTH);
+
+// Check if wallpaper is supported
+const isSupported = HybridWallpaper.isWallpaperSupported();
+
+// Check if setting wallpaper is allowed
+const isAllowed = HybridWallpaper.isSetWallpaperAllowed();
+```
+
+## API Reference
+
+### Methods
+
+#### `setWallpaper(uri: string, location: WallpaperLocation): Promise<void>`
+
+Sets the device wallpaper from a given URI.
+
+- `uri`: Image URL or local file path
+- `location`: Where to set the wallpaper (HOME, LOCK, or BOTH)
+
+#### `isWallpaperSupported(): boolean`
+
+Returns whether wallpaper functionality is supported on the current device.
+
+#### `isSetWallpaperAllowed(): boolean`
+
+Returns whether the app has permission to set wallpapers.
+
+### Enums
+
+#### `WallpaperLocation`
+
+```typescript
+enum WallpaperLocation {
+  HOME = 0,  // Home screen only
+  LOCK = 1,  // Lock screen only
+  BOTH = 2   // Both screens
+}
+```
+
+## Example
+
+Check out the complete example in the `WallpaperExample` directory:
+
+```typescript
+import { HybridWallpaper, WallpaperLocation } from '@velocity-stack/rn-wallpaper';
+
+const setWallpaper = async () => {
+  try {
+    await HybridWallpaper.setWallpaper(
+      'https://example.com/wallpaper.jpg',
+      WallpaperLocation.BOTH
+    );
+    console.log('Wallpaper set successfully!');
+  } catch (error) {
+    console.error('Failed to set wallpaper:', error);
+  }
+};
+```
+
+## Permissions
+
+### Android
+
+Add to `android/app/src/main/AndroidManifest.xml`:
+
+```xml
+<uses-permission android:name="android.permission.SET_WALLPAPER" />
+```
+
+### iOS
+
+No special permissions required (wallpaper functionality not available on iOS).
+
+## Development
+
+```bash
+# Install dependencies
+npm install
+
+# Build the module
+npm run build
+
+# Run linting
+npm run lint
+
+# Run example app
+cd WallpaperExample
+npm install
+npm run android # or npm run ios
+```
 
 ## Contributing
 
-Contribute a change to this template to update it for newer React Native versions.
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-## Structure
+## License
 
-- [`android/`](android): All your `android`-specific implementations.
-  - [`build.gradle`](android/build.gradle): The gradle build file. This contains four important pieces:
-    1. Standard react-native library boilerplate code
-    2. Configures Kotlin (`apply plugin: 'org.jetbrains.kotlin.android'`)
-    3. Adds all Nitrogen files (`apply from: '.../NitroWallpaper+autolinking.gradle'`)
-    4. Triggers the native C++ build (via CMake/`externalNativeBuild`)
-  - [`CMakeLists.txt`](android/CMakeLists.txt): The CMake build file to build C++ code. This contains four important pieces:
-    1. Creates a library called `NitroWallpaper` (same as in `nitro.json`)
-    2. Adds all Nitrogen files (`include(.../NitroWallpaper+autolinking.cmake)`)
-    3. Adds all custom C++ files (only `HybridTestObjectCpp.cpp`)
-    4. Adds a `cpp-adapter.cpp` file, which autolinks all C++ HybridObjects (only `HybridTestObjectCpp`)
-  - [`src/main/java/com/margelo/nitro/wallpaper/`](android/src/main/java/com/margelo/nitro/wallpaper/): All Kotlin implementations.
-    - [`NitroWallpaperPackage.kt`](android/src/main/java/com/margelo/nitro/wallpaper/NitroWallpaperPackage.kt): The react-native package. You need this because the react-native CLI only adds libraries if they have a `*Package.kt` file. In here, you can autolink all Kotlin HybridObjects.
-- [`cpp/`](cpp): All your cross-platform implementations. (only `HybridTestObjectCpp.cpp`)
-- [`ios/`](ios): All your iOS-specific implementations.
-- [`nitrogen/`](nitrogen): All files generated by nitrogen. You should commit this folder to git.
-- [`src/`](src): The TypeScript codebase. This defines all HybridObjects and loads them at runtime.
-  - [`specs/`](src/specs): All HybridObject types. Nitrogen will run on all `*.nitro.ts` files.
-- [`nitro.json`](nitro.json): The configuration file for nitrogen. This will define all native namespaces, as well as the library name.
-- [`NitroWallpaper.podspec`](NitroWallpaper.podspec): The iOS podspec build file to build the iOS code. This contains three important pieces:
-  1. Specifies the Pod's name. This must be identical to the name specified in `nitro.json`.
-  2. Adds all of your `.swift` or `.cpp` files (implementations).
-  3. Adds all Nitrogen files (`add_nitrogen_files(s)`)
-- [`package.json`](package.json): The npm package.json file. `react-native-nitro-modules` should be a `peerDependency`.
+MIT © [Dev Adi](https://github.com/DevAdi-Man)
+
+## Issues
+
+Report issues at: https://github.com/DevAdi-Man/react-native-wallpaper/issues
+
