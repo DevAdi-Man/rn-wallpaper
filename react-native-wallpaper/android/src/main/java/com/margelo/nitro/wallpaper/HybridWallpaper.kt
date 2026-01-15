@@ -19,8 +19,8 @@ class HybridWallpaper: HybridWallpaperSpec(){
         return Promise.async {
             try {
                 val wallpaperManager = WallpaperManager.getInstance(context)
-                val bitmap = downloadBitmap(uri)
-
+                val inputStream: InputStream? = URL(imageUri).openStream()
+                val bitmap = BitmapFactory.decodeStream(inputStream) ?: throw Exception("Could not decode image. Ensure the URI is correct.")
                 // Apply the wallpaper
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     val flags = when (location){
@@ -36,6 +36,7 @@ class HybridWallpaper: HybridWallpaperSpec(){
                     wallpaperManager.setBitmap(bitmap)
                 }
 
+                inputStream.close()
             }catch (e: Exception){
                 throw Error(e.message)
             }
@@ -60,18 +61,6 @@ class HybridWallpaper: HybridWallpaperSpec(){
         } catch (e: Exception) {
             false
         }
-    }
-
-    private fun downloadBitmap(uri: String): Bitmap {
-        return if (uri.startsWith("http") || uri.startsWith("https")) {
-            val url = URL(uri)
-            BitmapFactory.decodeStream(url.openConnection().getInputStream())
-        } else if (uri.startsWith("file://")) {
-            val path = uri.replace("file://", "")
-            BitmapFactory.decodeFile(path)
-        } else {
-            BitmapFactory.decodeFile(uri)
-        } ?: throw Error("Could not decode image from URI: $uri")
     }
 
 }

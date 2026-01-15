@@ -12,7 +12,7 @@ export default function Index() {
             console.log(`Setting ${locationName} wallpaper...`);
 
             // 1. Call the Native Nitro Module
-            await HybridWallpaper.setWallpaper("https://i.pinimg.com/1200x/2a/3f/d7/2a3fd769a7e6c35d317b6f96eb8b4706.jpg", location);
+            await HybridWallpaper.setWallpaper("https://i.pinimg.com/1200x/e8/5d/47/e85d474bed6b0dfc1918815528492bd6.jpg", location);
 
             Alert.alert("Success", `${locationName} wallpaper updated successfully!`);
         } catch (e: any) {
@@ -28,7 +28,7 @@ export default function Index() {
 
             <View style={styles.imageContainer}>
                 <Image
-                    source={{ uri: "https://i.pinimg.com/1200x/2a/3f/d7/2a3fd769a7e6c35d317b6f96eb8b4706.jpg" }}
+                    source={{ uri: "https://i.pinimg.com/1200x/e8/5d/47/e85d474bed6b0dfc1918815528492bd6.jpg" }}
                     style={{ width: 300, height: 400, borderRadius: 16, margin: 16 }} />
                 <Text style={styles.subtitle}>Preview Image</Text>
             </View>
